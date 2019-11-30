@@ -15,13 +15,19 @@ public class RockBigFP : FakePhysics {
 
     //Rock's own movement
     protected override void DoMove() {
-        transform.Rotate(0, 0, -mRotation * MaxRotation * Time.deltaTime);
+        Quaternion tRotation = Quaternion.Euler(0, 0, -mRotation * MaxRotation * Time.deltaTime);
+        transform.rotation *= tRotation; //Using Quartonians for rotation
         base.DoMove();
     }
 
     protected override void CollidedWith(FakePhysics vOtherFF) {
-        Debug.LogFormat("RockBigFP hit by {0}", vOtherFF.name); //RockBigFP specifc code
         //We do not call parent as we will handle
+        if (vOtherFF is BulletFP) {  //Were we hit by a bullet
+            Destroy(gameObject);    //Destroy Asteroid
+            Destroy(vOtherFF.gameObject);    //Destroy Bullet
+            GM.SpawnPrefab(GM.SpawnIDs.Explosion, transform.position, Random.Range(-180, 180));// Exposion
+            GM.SpawnPrefab(GM.SpawnIDs.AsteroidMedium, transform.position, Random.Range(-180, 180)); //Medium Rock
+            GM.SpawnPrefab(GM.SpawnIDs.AsteroidMedium, transform.position, Random.Range(-180, 180)); //Medium Rock
+        }
     }
-
 }

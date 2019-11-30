@@ -12,7 +12,7 @@ public class FakePhysics : MonoBehaviour
     [SerializeField] //Show in IDE
     protected float MaxRotation = 360.0f; //Now protected
 
-    protected Vector2 mVelocity = Vector2.zero; //Now protected
+    public Vector2 mVelocity = Vector2.zero; //Now public as we need to use it in Gun
 
     private Collider2D mCollider = null;        //Added in IDE but found with code
     private Rigidbody2D mRB2 = null;    //We will set this up in code
@@ -69,4 +69,14 @@ public class FakePhysics : MonoBehaviour
         Debug.LogFormat("Collision between {0} and {1}", name, vOtherFF.name); //Print Message
     }
 
+
+    //This may be useful for other children, so add to base class
+    protected Vector2 ClampVelocity(Vector2 vVelocity, float vMaxSpeed) {
+        float tSpeed = vVelocity.magnitude; //Lenght of Velocity vector is the speed
+        if (tSpeed > vMaxSpeed) //Are we speeding?
+        {
+            vVelocity *= vMaxSpeed / tSpeed; //Slow down, by amount of overspeed
+        }
+        return vVelocity;
+    }
 }

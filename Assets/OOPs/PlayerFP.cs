@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class PlayerFP : FakePhysics
 {
+    [SerializeField] //Show in IDE
+    [Range(1.0f,10.0f)] //Add nice slider
+    float MaxPlayerSpeed=5.0f; //Default value
+
     protected override void DoMove() {
         Vector2 tMoveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")); //Get User input
 
@@ -13,6 +17,7 @@ public class PlayerFP : FakePhysics
         Vector2 tForce = transform.up;  //Up vector is now direction we are pointing in
         tForce *= MaxSpeed * tMoveInput.y; //Apply User input & MaxSpeed
         mVelocity += tForce;    //Calculate new velocity, scale for time
+        mVelocity = ClampVelocity(mVelocity, MaxPlayerSpeed); //Clamp Speed if needed, use base class function
         base.DoMove(); //Call base class to update position
     }
 
