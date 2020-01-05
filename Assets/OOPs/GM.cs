@@ -10,7 +10,11 @@ public class GM : MonoBehaviour {
 //Stop message about variable not being assigned, which is an error, as we assing in IDE
 #pragma warning(disable : 0649) 
 
-    private static GM sSingleton; //Make static singleton, this will be shared by all
+    public static GM sSingleton; //Make static singleton, this will be shared by all
+
+    public int Score = 0;
+
+    public float Health = 1.0f;
 
     //Make the singleton
     void Awake() {
@@ -27,6 +31,8 @@ public class GM : MonoBehaviour {
     void StartGame() {
         CreatePlayer();
         CreateAsteroids(10);
+        Score = 0;
+        Health = 1.0f;
     }
 
     #region Spawning

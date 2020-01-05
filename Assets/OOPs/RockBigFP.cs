@@ -28,6 +28,17 @@ public class RockBigFP : FakePhysics {
             GM.SpawnPrefab(GM.SpawnIDs.Explosion, transform.position, Random.Range(-180, 180));// Exposion
             GM.SpawnPrefab(GM.SpawnIDs.AsteroidMedium, transform.position, Random.Range(-180, 180)); //Medium Rock
             GM.SpawnPrefab(GM.SpawnIDs.AsteroidMedium, transform.position, Random.Range(-180, 180)); //Medium Rock
+
+            GM.sSingleton.Score += 100; //Give player score
+        } else if(vOtherFF is PlayerFP)
+        {
+
+            Destroy(gameObject);    //Destroy Asteroid
+            GM.SpawnPrefab(GM.SpawnIDs.Explosion, transform.position, Random.Range(-180, 180));// Exposion
+            GM.SpawnPrefab(GM.SpawnIDs.AsteroidMedium, transform.position, Random.Range(-180, 180)); //Medium Rock
+            GM.SpawnPrefab(GM.SpawnIDs.AsteroidMedium, transform.position, Random.Range(-180, 180)); //Medium Rock
+            GM.sSingleton.Score += 10; //Give less player score for crashing
+            GM.sSingleton.Health = Mathf.Clamp(GM.sSingleton.Health - 0.05f,0.0f,1.0f);  //Reduce Health, but clamp
         }
     }
 }
