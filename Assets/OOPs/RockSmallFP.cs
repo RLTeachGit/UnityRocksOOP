@@ -21,5 +21,21 @@ public class RockSmallFP : FakePhysics
     protected override void CollidedWith(FakePhysics vOtherFF) {
         Debug.LogFormat("RockSmall hit by {0}", vOtherFF.name); //RockMedium specifc code
         //We do not call parent as we will handle
+        if (vOtherFF is BulletFP)
+        {  //Were we hit by a bullet
+            Destroy(gameObject);    //Destroy Asteroid
+            Destroy(vOtherFF.gameObject);    //Destroy Bullet
+            GM.SpawnPrefab(GM.SpawnIDs.Explosion, transform.position, Random.Range(-180, 180));// Exposion
+
+            GM.sSingleton.Score += 200; //Give player score
+        }
+        else if (vOtherFF is PlayerFP)
+        {
+
+            Destroy(gameObject);    //Destroy Asteroid
+            GM.SpawnPrefab(GM.SpawnIDs.Explosion, transform.position, Random.Range(-180, 180));// Exposion
+            GM.sSingleton.Score += 20; //Give less player score for crashing
+            GM.sSingleton.Health = Mathf.Clamp(GM.sSingleton.Health - 0.015f, 0.0f, 1.0f);  //Reduce Health, but clamp
+        }
     }
 }

@@ -20,8 +20,28 @@ public class RockMediumFP : FakePhysics
     }
 
     protected override void CollidedWith(FakePhysics vOtherFF) {
-        Debug.LogFormat("RockMedium hit by {0}", vOtherFF.name); //Rock Medium specifc code
-        //We do not call parent as we will handle
+        if (vOtherFF is BulletFP)
+        {  //Were we hit by a bullet
+            Destroy(gameObject);    //Destroy Asteroid
+            Destroy(vOtherFF.gameObject);    //Destroy Bullet
+            GM.SpawnPrefab(GM.SpawnIDs.Explosion, transform.position, Random.Range(-180, 180));// Exposion
+            GM.SpawnPrefab(GM.SpawnIDs.AsteroidSmall, transform.position, Random.Range(-180, 180)); //Medium Rock
+            GM.SpawnPrefab(GM.SpawnIDs.AsteroidSmall, transform.position, Random.Range(-180, 180)); //Medium Rock
+            GM.SpawnPrefab(GM.SpawnIDs.AsteroidSmall, transform.position, Random.Range(-180, 180)); //Medium Rock
+
+            GM.sSingleton.Score += 150; //Give player score
+        }
+        else if (vOtherFF is PlayerFP)
+        {
+
+            Destroy(gameObject);    //Destroy Asteroid
+            GM.SpawnPrefab(GM.SpawnIDs.Explosion, transform.position, Random.Range(-180, 180));// Exposion
+            GM.SpawnPrefab(GM.SpawnIDs.AsteroidSmall, transform.position, Random.Range(-180, 180)); //Medium Rock
+            GM.SpawnPrefab(GM.SpawnIDs.AsteroidSmall, transform.position, Random.Range(-180, 180)); //Medium Rock
+            GM.SpawnPrefab(GM.SpawnIDs.AsteroidSmall, transform.position, Random.Range(-180, 180)); //Medium Rock
+            GM.sSingleton.Score += 150; //Give less player score for crashing
+            GM.sSingleton.Health = Mathf.Clamp(GM.sSingleton.Health - 0.025f, 0.0f, 1.0f);  //Reduce Health, but clamp
+        }
     }
 
 }

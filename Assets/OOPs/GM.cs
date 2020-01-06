@@ -53,6 +53,7 @@ public class GM : MonoBehaviour {
         ,Bullet //2
         , Explosion //3
         ,AsteroidMedium //4
+        , AsteroidSmall //5
     }
     //Function we can use to spawn Objects
     public static GameObject SpawnPrefab(SpawnIDs vID, Vector2 vLocation, float vAngle) {
