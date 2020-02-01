@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RockSmallFP : FakePhysics
+public class RockSmallFP : RockBase
 {
     float mRotation;
 

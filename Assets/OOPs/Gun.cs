@@ -9,7 +9,7 @@ public class Gun : MonoBehaviour
 
 
     [SerializeField]
-    float CoolDown = 0.2f;
+    float CoolDown = 0.05f;
 
     float mCooldownCount = 0;
 
