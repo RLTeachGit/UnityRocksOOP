@@ -121,8 +121,6 @@ public class GM : MonoBehaviour {
         , GameOver
     }
 
-
-
     GameStates mCurrentState = GameStates.None;    //Pre First State in initialisation
     //State machine handler
     static public GameStates GameState {   //This may call itself recursivly
@@ -164,8 +162,6 @@ public class GM : MonoBehaviour {
             default:    //No Action
                 break;
         }
-
-
     }
 
     //Used to set up a new state
